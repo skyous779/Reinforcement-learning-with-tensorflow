@@ -29,17 +29,28 @@ class RL(object):
                 )
             )
 
+<<<<<<< HEAD
     def choose_action(self, observation):    #决策方式
+=======
+    def choose_action(self, observation):
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
         self.check_state_exist(observation)
         # action selection
         if np.random.rand() < self.epsilon:
             # choose best action
             state_action = self.q_table.loc[observation, :]
             # some actions may have the same value, randomly choose on in these actions
+<<<<<<< HEAD
             action = np.random.choice(state_action[state_action == np.max(state_action)].index)   #选最大
         else:
             # choose random action
             action = np.random.choice(self.actions)    #随机选
+=======
+            action = np.random.choice(state_action[state_action == np.max(state_action)].index)
+        else:
+            # choose random action
+            action = np.random.choice(self.actions)
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
         return action
 
     def learn(self, *args):
@@ -49,7 +60,11 @@ class RL(object):
 # off-policy
 class QLearningTable(RL):
     def __init__(self, actions, learning_rate=0.01, reward_decay=0.9, e_greedy=0.9):
+<<<<<<< HEAD
         super(QLearningTable, self).__init__(actions, learning_rate, reward_decay, e_greedy)   
+=======
+        super(QLearningTable, self).__init__(actions, learning_rate, reward_decay, e_greedy)
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
 
     def learn(self, s, a, r, s_):
         self.check_state_exist(s_)
@@ -67,7 +82,11 @@ class SarsaTable(RL):
     def __init__(self, actions, learning_rate=0.01, reward_decay=0.9, e_greedy=0.9):
         super(SarsaTable, self).__init__(actions, learning_rate, reward_decay, e_greedy)
 
+<<<<<<< HEAD
     def learn(self, s, a, r, s_, a_): 
+=======
+    def learn(self, s, a, r, s_, a_):
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
         self.check_state_exist(s_)
         q_predict = self.q_table.loc[s, a]
         if s_ != 'terminal':

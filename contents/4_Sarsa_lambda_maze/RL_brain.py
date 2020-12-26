@@ -36,7 +36,11 @@ class RL(object):
             # choose best action
             state_action = self.q_table.loc[observation, :]
             # some actions may have the same value, randomly choose on in these actions
+<<<<<<< HEAD
             action = np.random.choice(state_action[state_action == np.max(state_action)].index)    
+=======
+            action = np.random.choice(state_action[state_action == np.max(state_action)].index)
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
         else:
             # choose random action
             action = np.random.choice(self.actions)
@@ -53,7 +57,11 @@ class SarsaLambdaTable(RL):
 
         # backward view, eligibility trace.
         self.lambda_ = trace_decay
+<<<<<<< HEAD
         self.eligibility_trace = self.q_table.copy()         #多了个表格
+=======
+        self.eligibility_trace = self.q_table.copy()
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
 
     def check_state_exist(self, state):
         if state not in self.q_table.index:
@@ -66,7 +74,11 @@ class SarsaLambdaTable(RL):
             self.q_table = self.q_table.append(to_be_append)
 
             # also update eligibility trace
+<<<<<<< HEAD
             self.eligibility_trace = self.eligibility_trace.append(to_be_append)     #
+=======
+            self.eligibility_trace = self.eligibility_trace.append(to_be_append)
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
 
     def learn(self, s, a, r, s_, a_):
         self.check_state_exist(s_)
@@ -75,16 +87,28 @@ class SarsaLambdaTable(RL):
             q_target = r + self.gamma * self.q_table.loc[s_, a_]  # next state is not terminal
         else:
             q_target = r  # next state is terminal
+<<<<<<< HEAD
         error = q_target - q_predict     #区别1
+=======
+        error = q_target - q_predict
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
 
         # increase trace amount for visited state-action pair
 
         # Method 1:
+<<<<<<< HEAD
         # self.eligibility_trace.loc[s, a] += 1    
 
         # Method 2:
         self.eligibility_trace.loc[s, :] *= 0
         self.eligibility_trace.loc[s, a] = 1     
+=======
+        # self.eligibility_trace.loc[s, a] += 1
+
+        # Method 2:
+        self.eligibility_trace.loc[s, :] *= 0
+        self.eligibility_trace.loc[s, a] = 1
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
 
         # Q update
         self.q_table += self.lr * error * self.eligibility_trace

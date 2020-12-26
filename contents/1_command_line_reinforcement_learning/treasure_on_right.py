@@ -10,7 +10,11 @@ import numpy as np
 import pandas as pd
 import time
 
+<<<<<<< HEAD
 np.random.seed(2)  # reproducible   生成一样的随机数
+=======
+np.random.seed(2)  # reproducible
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
 
 
 N_STATES = 6   # the length of the 1 dimensional world
@@ -19,6 +23,7 @@ EPSILON = 0.9   # greedy police
 ALPHA = 0.1     # learning rate
 GAMMA = 0.9    # discount factor
 MAX_EPISODES = 13   # maximum episodes
+<<<<<<< HEAD
 FRESH_TIME = 0.1    # fresh time for one move
 
 
@@ -28,6 +33,17 @@ def build_q_table(n_states, actions):
         columns=actions,    # actions's name
     )
     #print(table)    # show table
+=======
+FRESH_TIME = 0.3    # fresh time for one move
+
+
+def build_q_table(n_states, actions):
+    table = pd.DataFrame(
+        np.zeros((n_states, len(actions))),     # q_table initial values
+        columns=actions,    # actions's name
+    )
+    # print(table)    # show table
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
     return table
 
 
@@ -76,6 +92,7 @@ def update_env(S, episode, step_counter):
 
 def rl():
     # main part of RL loop
+<<<<<<< HEAD
     q_table = build_q_table(N_STATES, ACTIONS)    #建立一个Q-table
     for episode in range(MAX_EPISODES):          #每个回合
         step_counter = 0                        #用于计步
@@ -94,11 +111,34 @@ def rl():
                 is_terminated = True    # terminate this episode
 
             q_table.loc[S, A] += ALPHA * (q_target - q_predict)  # update更新Q表
+=======
+    q_table = build_q_table(N_STATES, ACTIONS)
+    for episode in range(MAX_EPISODES):
+        step_counter = 0
+        S = 0
+        is_terminated = False
+        update_env(S, episode, step_counter)
+        while not is_terminated:
+
+            A = choose_action(S, q_table)
+            S_, R = get_env_feedback(S, A)  # take action & get next state and reward
+            q_predict = q_table.loc[S, A]
+            if S_ != 'terminal':
+                q_target = R + GAMMA * q_table.iloc[S_, :].max()   # next state is not terminal
+            else:
+                q_target = R     # next state is terminal
+                is_terminated = True    # terminate this episode
+
+            q_table.loc[S, A] += ALPHA * (q_target - q_predict)  # update
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
             S = S_  # move to next state
 
             update_env(S, episode, step_counter+1)
             step_counter += 1
+<<<<<<< HEAD
         #print(q_table)    
+=======
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
     return q_table
 
 

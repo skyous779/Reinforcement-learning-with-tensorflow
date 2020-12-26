@@ -27,8 +27,13 @@ def update():
             observation_, reward, done = env.step(action)
 
             # RL choose action based on next observation
+<<<<<<< HEAD
             action_ = RL.choose_action(str(observation_))     #更新方式：选好下一步，一定要走更新表格的这步
                                                               #这里和Qlearning不一样，Qlearning用最大步更新，却不一定走这一步
+=======
+            action_ = RL.choose_action(str(observation_))
+
+>>>>>>> 925f044b7cadb8d60e86e29c4b636d30eb059729
             # RL learn from this transition (s, a, r, s, a) ==> Sarsa
             RL.learn(str(observation), action, reward, str(observation_), action_)
 
